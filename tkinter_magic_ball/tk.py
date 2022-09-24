@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 from random import choice
+import time
+
 
 answers = ['Бесспорно', 'Предрешено', 'Никаких\nсомнений', 'Определённо\nда', 'Можешь быть\nуверен\nв этом',
            'Мне кажется \nда', 'Вероятнее\nвсего', 'Хорошие\nперспективы', 'Знаки говорят\nда', 'Да',
@@ -10,6 +12,7 @@ answers = ['Бесспорно', 'Предрешено', 'Никаких\nсом
 
 
 def choice_answer():        # функция для выбора ответа
+    time.sleep(0.3)
     global ans_old
     ans_new = ans_old
     while ans_new == ans_old:   # чтобы один и тот же ответ не выпал два раза подряд
@@ -27,7 +30,7 @@ def on_closing():
         root.destroy()
 
 
-def window_close(this_window):
+def window_close(this_window):      # функция чтобы окно инфо не дублировалось
     global window_open
     window_open = False
     this_window.destroy()
@@ -75,33 +78,32 @@ canvas.pack()
 img_obj1 = PhotoImage(file="img/magic_ball.png")        # фоновое изображение
 canvas.create_image(0, 0, anchor=NW, image=img_obj1)
 
-canvas.create_text(350, 30, text="МАГИЧЕСКИЙ ШАР",      # красный заголовок
-                   font=("WiGuru 2", 40, 'bold'),
-                   fill="red", anchor=N)
+img_obj2 = PhotoImage(file="img/title.png")        # главный заголовок
+canvas.create_image(-38, 10, anchor=NW, image=img_obj2)
 
-ans_old = 'Добро\nпожаловать!'
+ans_old = 'Добро\nпожаловать!'                              # текст с ответом
 answer = canvas.create_text(345, 300, text=ans_old,
                             font=("WiGuru 2", 20), fill='white',
                             justify=CENTER, anchor=CENTER)
 
-b1 = Button(root, text='ЗАДАЙ ВОПРОС И НАЖМИ',              # кнопка
+b1 = Button(root, text='ЗАДАЙ ВОПРОС И НАЖМИ',              # главная кнопка
             font=("WiGuru 2", 15), command=choice_answer,
             bg='#9FEE00', bd=8)
 b1.place(x=182, y=480, width=330, height=50)
 
 
-our_button1 = PhotoImage(file="img/button_restart.png")
+our_button1 = PhotoImage(file="img/button_restart.png")         # кнопка обновления
 id_button1 = Button(root, image=our_button1, highlightthickness=0,
                     bg='#9FEE00', bd=4, command=on_restart)
 id_button1.place(x=15, y=505)
 
-our_button2 = PhotoImage(file="img/button_exit.png")
+our_button2 = PhotoImage(file="img/button_exit.png")            # кнопка выхода
 id_button2 = Button(root, image=our_button2, highlightthickness=0,
                     bg='#9FEE00', bd=4, command=on_closing)
 id_button2.place(x=645, y=505)
 
 window_open = False
-our_button3 = PhotoImage(file="img/button_info.png")
+our_button3 = PhotoImage(file="img/button_info.png")            # кнопка инфо
 id_button3 = Button(root, image=our_button3, highlightthickness=0,
                     bg='#9FEE00', bd=4, command=press_info)
 id_button3.place(x=15, y=450)
